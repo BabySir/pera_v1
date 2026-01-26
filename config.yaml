@@ -1,0 +1,24 @@
+# 2. config.yaml
+nano_llm:
+  model_name: "microsoft/Phi-3-mini-4k-instruct"  # 3.8B nano-LLM [web:52]
+  max_length: 2048
+  temperature: 0.7
+
+rag:
+  chunk_size: 800
+  chunk_overlap: 100
+  top_k: 5
+  embedding_model: "all-MiniLM-L6-v2"
+
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+xai:
+  explainer_type: "shap"  # or "lime"
+  num_samples: 100
+
+storage:
+  chroma_path: "./vector_db"
+  patient_data: "./data/sample_patient_data.json"

@@ -1,0 +1,18 @@
+streamlit==1.38.0
+langchain==0.3.1
+langchain-community==0.3.1
+chromadb==0.5.11
+sentence-transformers==3.1.1
+transformers==4.46.3
+torch==2.5.1
+accelerate==1.1.1
+peft==0.15.1
+bitsandbytes==0.44.1
+trl==0.9.6
+shap==0.50.1
+lime==0.2.0.1
+pandas==2.2.3
+pypdf==5.1.0
+pyyaml==6.0.2
+python-dotenv==1.0.1
+ollama==0.3.3  # For local inference fallback

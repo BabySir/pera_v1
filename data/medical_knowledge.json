@@ -1,0 +1,33 @@
+
+[
+  {
+    "section": "Knee Osteoarthritis Rehabilitation",
+    "content": "For knee osteoarthritis patients with pain levels 6-8/10, recommend low-impact exercises: seated leg lifts (3x15 reps), wall sits (3x30sec), aquatic therapy if available. Avoid high-impact activities like running or jumping. Pain reduction expected: 20-30% in 2 weeks with consistent adherence.",
+    "evidence_level": "Level A (RCTs)",
+    "keywords": ["knee pain", "osteoarthritis", "rehab exercises", "low impact"]
+  },
+  {
+    "section": "CBT for Chronic Pain Management",
+    "content": "Cognitive Behavioral Therapy techniques: 1) Pain acceptance reframing ('Pain is a signal, not a barrier'), 2) Activity pacing (short bursts + rest), 3) Positive reinforcement logging. Track mood-pain correlation daily. Success rate: 65% pain reduction in 8 weeks.",
+    "evidence_level": "Level B (Cohort studies)",
+    "keywords": ["chronic pain", "CBT", "mood tracking", "pain acceptance"]
+  },
+  {
+    "section": "Sedentary Lifestyle Recovery",
+    "content": "For IT workers (8+ hours sitting): Micro-breaks every 30min (stand+stretch 2min), hourly walking goal (500 steps), ergonomic setup (knees 90°, screen eye-level). NEAT increase target: 2000 steps/day. Reduces knee stiffness by 40%.",
+    "evidence_level": "Level A",
+    "keywords": ["sedentary", "IT worker", "micro breaks", "NEAT"]
+  },
+  {
+    "section": "Vegetarian Recovery Nutrition",
+    "content": "Protein sources: lentils (18g/cup), chickpeas (15g/cup), paneer (20g/100g), quinoa (14g/cup), Greek yogurt (10g/100g). Anti-inflammatory: turmeric milk, ginger tea, omega-3 flaxseeds. Sample meal: lentil soup + quinoa salad.",
+    "evidence_level": "Level B",
+    "keywords": ["vegetarian", "protein", "recovery nutrition", "anti inflammatory"]
+  },
+  {
+    "section": "Motivational Interviewing Protocol",
+    "content": "MI technique sequence: 1) Open questions ('What feels most challenging?'), 2) Affirm strengths ('You've made great progress on walks'), 3) Reflective listening ('Sounds like mornings are toughest'), 4) Explore ambivalence ('Part of you wants to quit smoking'). OARS protocol.",
+    "evidence_level": "Level A",
+    "keywords": ["motivational interviewing", "MI", "OARS", "ambivalence"]
+  }
+]

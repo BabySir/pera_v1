@@ -1,0 +1,17 @@
+
+[
+  {
+    "patient_id": "P001",
+    "name": "John Doe",
+    "age": 45,
+    "condition": "knee osteoarthritis",
+    "lifestyle": "sedentary IT worker",
+    "diet": "vegetarian",
+    "pain_log": [
+      {"date": "2025-12-20", "knee_pain": 7, "mood": 4, "activity": "low"},
+      {"date": "2025-12-21", "knee_pain": 6, "mood": 5, "activity": "walked 10min"}
+    ],
+    "medical_history": "post-ACL surgery 2 years ago",
+    "goals": ["reduce knee pain", "improve mobility", "quit smoking"]
+  }
+]
