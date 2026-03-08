@@ -8,6 +8,8 @@ from transformers import (
     AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig,
     TrainingArguments, Trainer, DataCollatorForLanguageModeling
 )
+
+from typing import List, Dict
 from peft import LoraConfig, get_peft_model, TaskType
 from datasets import Dataset
 from src.rag_retriever import RAGRetriever

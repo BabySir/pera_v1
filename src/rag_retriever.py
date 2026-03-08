@@ -3,12 +3,18 @@
 RAG Pipeline using ChromaDB + Sentence Transformers
 Optimized for medical documents + patient data [web:9][web:25]
 """
+import langchain_community 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.vectorstores import Chroma
+from langchain_community import document_loaders
+from langchain_community import vectorstores
+
+from langchain_community import Chroma
+from langchain_community import PyPDFLoader
+
 from langchain_huggingface import HuggingFaceEmbeddings
 from src.personalization import PatientDataManager
 import os
+from typing import List, Dict
 
 class RAGRetriever:
     def __init__(self, config_path: str = "./config.yaml"):
