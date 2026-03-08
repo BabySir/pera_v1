@@ -5,14 +5,15 @@ Deployable to Google Cloud Run / Streamlit Cloud
 """
 import streamlit as st
 from src.nano_llm import NanoLLM
-from src.xai_explainer import XAIExplainer
+from src.xai_explainer_lime import XAIExplainerLIME
+from src.xai_explainer_shap import XAIExplainerSHAP
 from src.personalization import PatientDataManager
 
-st.set_page_config(page_title="e-Rehab Assistant", layout="wide")
+st.set_page_config(page_title="PeRA-Your Friend", layout="wide")
 
 @st.cache_resource
 def load_models():
-    return NanoLLM(), XAIExplainer(), PatientDataManager()
+    return NanoLLM(), XAIExplainerLIME(), PatientDataManager()
 
 def main():
     st.title("🤖 Personalized e-Rehabilitation Assistant")
