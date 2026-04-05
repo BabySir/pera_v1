@@ -1,20 +1,13 @@
-# 5. src/rag_retriever.py
-"""
-RAG Pipeline using ChromaDB + Sentence Transformers
-Optimized for medical documents + patient data [web:9][web:25]
-"""
-import langchain_community 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community import document_loaders
-from langchain_community import vectorstores
-
-from langchain_community import Chroma
-from langchain_community import PyPDFLoader
-
-from langchain_huggingface import HuggingFaceEmbeddings
-from src.personalization import PatientDataManager
 import os
+import json
 from typing import List, Dict
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+
+from src.personalization import PatientDataManager
 
 class RAGRetriever:
     def __init__(self, config_path: str = "./config.yaml"):
@@ -32,58 +25,59 @@ class RAGRetriever:
             return yaml.safe_load(f)
     
     def _init_vectorstore(self):
-        """Initialize ChromaDB with medical docs + patient data"""
+        """Initialize ChromaDB with JSON medical docs"""
         chroma_path = self.config['storage']['chroma_path']
         
-        # Load medical guidelines + patient data
+        # Load medical guidelines
         documents = self._load_medical_docs()
-        patient_docs = self._create_patient_documents()
-        all_docs = documents + patient_docs
         
         self.vectorstore = Chroma(
             collection_name="e_rehab",
             embedding_function=self.embeddings,
             persist_directory=chroma_path
         )
-        self.vectorstore.add_documents(all_docs)
-        self.vectorstore.persist()
+        
+        if documents:
+            self.vectorstore.add_documents(documents)
     
     def _load_medical_docs(self):
-        """Load PDF medical guidelines"""
+        """Load JSON medical guidelines and convert to LangChain Documents"""
         docs = []
-        pdf_path = "./data/medical_guidelines.pdf"  # Add your PDF here
-        if os.path.exists(pdf_path):
-            loader = PyPDFLoader(pdf_path)
-            docs = loader.load()
+        json_path = "./data/medical_knowledge.json"
+        
+        if os.path.exists(json_path):
+            with open(json_path, 'r', encoding='utf-8') as f:
+                knowledge_data = json.load(f)
+
+            for item in knowledge_data:
+                content = f"Condition: {item['condition_name']}\n"
+                content += f"Description: {item['description']}\n"
+                content += f"Goals: {', '.join(item['primary_rehabilitation_goals'])}\n"
+                content += "Exercises:\n"
+                for ex in item['recommended_exercises']:
+                    content += f" - {ex['name']}: {ex['instructions']} ({ex['frequency']})\n"
+                content += f"Contraindications: {', '.join(item['contraindications'])}\n"
+                content += f"Sources: {', '.join(item['source_references'])}\n"
+                content += f"Clinical URLs: {', '.join(item['clinical_guideline_urls'])}"
+
+                doc = Document(page_content=content, metadata={'source': item['condition_name'], 'type': 'medical_guideline'})
+                docs.append(doc)
+
             splitter = RecursiveCharacterTextSplitter(
                 chunk_size=self.config['rag']['chunk_size'],
                 chunk_overlap=self.config['rag']['chunk_overlap']
             )
             docs = splitter.split_documents(docs)
-        return docs
-    
-    def _create_patient_documents(self):
-        """Convert all patient data to documents"""
-        docs = []
-        for patient_id, context in self.patient_manager.patients.items():
-            patient_context = self.patient_manager.get_patient_context(patient_id)
-            doc = {
-                'page_content': patient_context,
-                'metadata': {'source': f'patient_{patient_id}', 'type': 'personal'}
-            }
-            docs.append(doc)
+            
         return docs
     
     def retrieve(self, query: str, patient_id: str = "P001", k: int = 5) -> List[str]:
         """Retrieve relevant context for query and ALWAYS include patient profile"""
-        # 1. Get the explicit patient context
         patient_context = self.patient_manager.get_patient_context(patient_id)
-        
-        # 2. Search for medical docs
         augmented_query = f"Patient context: {patient_context}\n\nQuery: {query}"
         
         retrieved_texts = []
-        # Always put the explicit patient profile at the very top of the list
+        # Hardcode the patient profile at the top so the AI never misses it
         retrieved_texts.append(f"CRITICAL PATIENT DATA:\n{patient_context}")
         
         if self.vectorstore:
@@ -91,5 +85,3 @@ class RAGRetriever:
             retrieved_texts.extend([doc.page_content for doc in relevant_docs])
             
         return retrieved_texts
-
-# ENHANCEMENT POINT: Add hybrid search (BM25 + semantic) for better medical retrieval
