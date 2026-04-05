@@ -17,3 +17,4 @@ xai:
 storage:
   chroma_path: "./vector_db"
   patient_data: "./data/sample_patient_data.json"
+
