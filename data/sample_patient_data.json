@@ -1,17 +1,47 @@
-
 [
   {
     "patient_id": "P001",
     "name": "John Doe",
-    "age": 45,
-    "condition": "knee osteoarthritis",
-    "lifestyle": "sedentary IT worker",
-    "diet": "vegetarian",
+    "age": 62,
+    "condition": "chronic right knee osteoarthritis",
+    "lifestyle": "retired, mostly sedentary, enjoys gardening",
+    "diet": "standard american, trying to reduce sodium",
     "pain_log": [
-      {"date": "2025-12-20", "knee_pain": 7, "mood": 4, "activity": "low"},
-      {"date": "2025-12-21", "knee_pain": 6, "mood": 5, "activity": "walked 10min"}
+      {"date": "2026-03-28", "knee_pain": 6, "mood": 5, "activity": "gardening for 20 mins"},
+      {"date": "2026-03-29", "knee_pain": 7, "mood": 4, "activity": "rested, raining outside"},
+      {"date": "2026-03-30", "knee_pain": 5, "mood": 6, "activity": "walked around the block"}
     ],
-    "medical_history": "post-ACL surgery 2 years ago",
-    "goals": ["reduce knee pain", "improve mobility", "quit smoking"]
+    "medical_history": "hypertension, post-ACL surgery on left knee 15 years ago",
+    "goals": ["reduce knee pain without surgery", "be able to play with grandchildren", "lose 10 lbs"]
+  },
+  {
+    "patient_id": "P002",
+    "name": "Sarah Chen",
+    "age": 34,
+    "condition": "chronic lower back pain (L4-L5 disc herniation)",
+    "lifestyle": "software engineer, sits 10+ hours a day",
+    "diet": "vegetarian, high protein",
+    "pain_log": [
+      {"date": "2026-03-28", "back_pain": 4, "mood": 7, "activity": "did morning stretches, used standing desk"},
+      {"date": "2026-03-29", "back_pain": 8, "mood": 3, "activity": "deadline day, sat for 12 hours straight"},
+      {"date": "2026-03-30", "back_pain": 6, "mood": 5, "activity": "took short walking breaks"}
+    ],
+    "medical_history": "no prior surgeries, occasional anxiety",
+    "goals": ["improve core strength", "sit comfortably through meetings", "return to running 5ks"]
+  },
+  {
+    "patient_id": "P003",
+    "name": "Marcus Johnson",
+    "age": 45,
+    "condition": "right rotator cuff tendinitis",
+    "lifestyle": "construction manager, frequent overhead lifting",
+    "diet": "omnivore, calorie surplus for muscle gain",
+    "pain_log": [
+      {"date": "2026-03-28", "shoulder_pain": 5, "mood": 6, "activity": "light site inspection"},
+      {"date": "2026-03-29", "shoulder_pain": 7, "mood": 4, "activity": "helped unload drywall"},
+      {"date": "2026-03-30", "shoulder_pain": 3, "mood": 8, "activity": "rest day, applied ice"}
+    ],
+    "medical_history": "type 2 diabetes (managed), previously dislocated right shoulder in college",
+    "goals": ["lift arms above head without wincing", "return to playing recreational tennis", "avoid steroid injections"]
   }
 ]

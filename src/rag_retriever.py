@@ -75,14 +75,21 @@ class RAGRetriever:
         return docs
     
     def retrieve(self, query: str, patient_id: str = "P001", k: int = 5) -> List[str]:
-        """Retrieve relevant context for query + patient"""
-        # Augment query with patient context
+        """Retrieve relevant context for query and ALWAYS include patient profile"""
+        # 1. Get the explicit patient context
         patient_context = self.patient_manager.get_patient_context(patient_id)
+        
+        # 2. Search for medical docs
         augmented_query = f"Patient context: {patient_context}\n\nQuery: {query}"
+        
+        retrieved_texts = []
+        # Always put the explicit patient profile at the very top of the list
+        retrieved_texts.append(f"CRITICAL PATIENT DATA:\n{patient_context}")
         
         if self.vectorstore:
             relevant_docs = self.vectorstore.similarity_search(augmented_query, k=k)
-            return [doc.page_content for doc in relevant_docs]
-        return [patient_context]
+            retrieved_texts.extend([doc.page_content for doc in relevant_docs])
+            
+        return retrieved_texts
 
 # ENHANCEMENT POINT: Add hybrid search (BM25 + semantic) for better medical retrieval

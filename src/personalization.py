@@ -38,14 +38,20 @@ Patient Profile:
         return context.strip()
     
     def _summarize_recent_logs(self, patient_id: str) -> str:
-        """Summarize recent pain/activity logs"""
+        """Summarize recent pain/activity logs dynamically"""
         patient = self.patients[patient_id]
         if 'pain_log' not in patient or not patient['pain_log']:
             return "No recent logs"
         
         recent = patient['pain_log'][-3:]  # Last 3 entries
-        summary = f"Average knee pain: {sum(log['knee_pain'] for log in recent)/len(recent):.1f}/10, "
-        summary += f"Mood: {sum(log['mood'] for log in recent)/len(recent):.1f}/10"
-        return summary
+        
+        # Dynamically find the key that ends with '_pain' (e.g., knee_pain, back_pain)
+        pain_key = next((k for k in recent[0].keys() if k.endswith('_pain')), 'pain_level')
+        
+        avg_pain = sum(log.get(pain_key, 0) for log in recent) / len(recent)
+        avg_mood = sum(log.get('mood', 0) for log in recent) / len(recent)
+        
+        formatted_pain_name = pain_key.replace('_', ' ')
+        return f"Average {formatted_pain_name}: {avg_pain:.1f}/10, Mood: {avg_mood:.1f}/10"
 
 # ENHANCEMENT POINT: Add real-time data ingestion from wearables (Fitbit API, Google Fit)
