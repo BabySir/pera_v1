@@ -6,13 +6,13 @@ class EvolutionManager:
         self.collection = self.client.get_or_create_collection("rehab_knowledge")
 
     def query_knowledge(self, keywords):
-        """Searches the database using the hybrid keywords."""
+        """Retrieves the most relevant tip from the database."""
         query_text = " ".join(keywords)
         results = self.collection.query(query_texts=[query_text], n_results=1)
         return results['documents'][0] if results['documents'] else "Focus on gentle consistency."
 
     def add_new_guideline(self, text, metadata):
-        """Logic for system updation with new external data."""
+        """Ingests new data to update the system's knowledge."""
         self.collection.add(
             documents=[text],
             metadatas=[metadata],
