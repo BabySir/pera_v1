@@ -50,17 +50,22 @@ class RAGRetriever:
                 knowledge_data = json.load(f)
 
             for item in knowledge_data:
-                content = f"Condition: {item['condition_name']}\n"
-                content += f"Description: {item['description']}\n"
-                content += f"Goals: {', '.join(item['primary_rehabilitation_goals'])}\n"
-                content += "Exercises:\n"
-                for ex in item['recommended_exercises']:
-                    content += f" - {ex['name']}: {ex['instructions']} ({ex['frequency']})\n"
-                content += f"Contraindications: {', '.join(item['contraindications'])}\n"
-                content += f"Sources: {', '.join(item['source_references'])}\n"
-                content += f"Clinical URLs: {', '.join(item['clinical_guideline_urls'])}"
+                # Use .get() to safely handle the keys in your specific JSON
+                section = item.get('section', 'General Guidance')
+                content_body = item.get('content', 'No content available.')
+                evidence = item.get('evidence_level', 'N/A')
+                tags = ", ".join(item.get('keywords', []))
 
-                doc = Document(page_content=content, metadata={'source': item['condition_name'], 'type': 'medical_guideline'})
+                # Build a clean string for the LLM to read
+                content = f"Topic: {section}\n"
+                content += f"Guideline: {content_body}\n"
+                content += f"Evidence Level: {evidence}\n"
+                content += f"Keywords: {tags}"
+
+                doc = Document(
+                    page_content=content, 
+                    metadata={'source': section, 'type': 'medical_guideline'}
+                )
                 docs.append(doc)
 
             splitter = RecursiveCharacterTextSplitter(
