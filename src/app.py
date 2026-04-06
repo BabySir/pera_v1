@@ -3,7 +3,7 @@ import streamlit as st
 from src.nano_llm import NanoLLM
 from src.personalization import PatientDataManager
 
-st.set_page_config(page_title="PeRA-Your Friend", layout="wide")
+#st.set_page_config(page_title="PeRA-Your Friend", layout="wide")
 
 @st.cache_resource
 def load_models():
