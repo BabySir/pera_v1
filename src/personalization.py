@@ -1,12 +1,6 @@
-# 4. src/personalization.py
-"""
-Patient Data Handler - Loads and processes personal health records
-ENHANCEMENT: Integrate with Google BigQuery for your cloud workflow [memory: user GCP pref]
-"""
 import json
-import pandas as pd
-from datetime import datetime
-from typing import Dict, List, Any
+import os
+from typing import Dict
 
 class PatientDataManager:
     def __init__(self, data_path: str = "./data/sample_patient_data.json"):
@@ -14,44 +8,44 @@ class PatientDataManager:
         self.patients = self._load_data()
     
     def _load_data(self) -> Dict[str, Dict]:
-        """Load patient JSON data into memory"""
-        with open(self.data_path, 'r') as f:
-            return {p['patient_id']: p for p in json.load(f)}
+        """Resiliently load patient JSON data into memory."""
+        if not os.path.exists(self.data_path):
+            return {}
+        with open(self.data_path, 'r', encoding='utf-8') as f:
+            try:
+                data = json.load(f)
+                # Use .get() to provide a fallback 'unknown' key to prevent KeyErrors
+                return {p.get('patient_id', 'unknown'): p for p in data}
+            except json.JSONDecodeError:
+                return {}
     
     def get_patient_context(self, patient_id: str) -> str:
-        """Convert patient data to RAG-friendly context string"""
+        """Convert nested patient data to RAG-friendly context string."""
         if patient_id not in self.patients:
-            return "No patient data available."
+            return "No specific patient history found. Proceed with general motherly care."
         
-        patient = self.patients[patient_id]
+        p = self.patients[patient_id]
+        
+        # Extract the data blocks
+        physical = p.get('physical', {})
+        lifestyle = p.get('lifestyle', {})
+        mental = p.get('mental', {})
+        
+
+        # Safe-Access Pattern: Check if lifestyle is a dictionary or just a string
+        if isinstance(lifestyle, dict):
+            work_info = lifestyle.get('work', 'Not specified')
+        else:
+            # If it's a string, use it directly as the work info
+            work_info = lifestyle if lifestyle else 'Not specified'
+            
         context = f"""
-Patient Profile:
-- Name: {patient['name']}
-- Age: {patient['age']}
-- Primary Condition: {patient['condition']}
-- Lifestyle: {patient['lifestyle']}
-- Diet: {patient['diet']}
-- Medical History: {patient['medical_history']}
-- Recent Status: {self._summarize_recent_logs(patient_id)}
-- Goals: {', '.join(patient['goals'])}
+Patient Profile Context:
+- Focus Area: {physical.get('focus', 'General')if isinstance(physical, dict) else physical}
+- Current Comfort: {physical.get('comfort', 'Normal')if isinstance(physical, dict) else physical}
+- Lifestyle/Work: {lifestyle.get('work', 'Not specified')if isinstance(lifestyle, dict) else lifestyle}
+- Energy Level: {lifestyle.get('sleep', 'Average')if isinstance(lifestyle, dict) else lifestyle}
+- Mindset: {mental.get('mindset', 'Determined')if isinstance(mental, dict) else mental}
+- North Star Goal: {mental.get('goal', 'Recovery') if isinstance(mental, dict) else mental}
         """
         return context.strip()
-    
-    def _summarize_recent_logs(self, patient_id: str) -> str:
-        """Summarize recent pain/activity logs dynamically"""
-        patient = self.patients[patient_id]
-        if 'pain_log' not in patient or not patient['pain_log']:
-            return "No recent logs"
-        
-        recent = patient['pain_log'][-3:]  # Last 3 entries
-        
-        # Dynamically find the key that ends with '_pain' (e.g., knee_pain, back_pain)
-        pain_key = next((k for k in recent[0].keys() if k.endswith('_pain')), 'pain_level')
-        
-        avg_pain = sum(log.get(pain_key, 0) for log in recent) / len(recent)
-        avg_mood = sum(log.get('mood', 0) for log in recent) / len(recent)
-        
-        formatted_pain_name = pain_key.replace('_', ' ')
-        return f"Average {formatted_pain_name}: {avg_pain:.1f}/10, Mood: {avg_mood:.1f}/10"
-
-# ENHANCEMENT POINT: Add real-time data ingestion from wearables (Fitbit API, Google Fit)
