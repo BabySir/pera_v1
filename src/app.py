@@ -42,11 +42,29 @@ def main():
 
     # --- Step 1: Physical Focus ---
     if st.session_state.step == 1:
-        st.header("🌱 Step 1: Checking In With Your Body")
+        st.header("🌱 Step 1: Checking In")
         with st.form("step1_form"):
-            focus = st.selectbox("Where shall we focus today?", ["Knee", "Lower Back", "Shoulder", "General Wellness"])
-            comfort = st.select_slider("How does it feel?", options=["1 ⛈️", "2 ☁️", "3 🌤️", "4 ☀️"])
-            story = st.text_area("Tell me more...")
+            focus_options = [
+                "General Wellness & Ergonomics",
+                "Addiction Recovery (Nicotine/Alcohol)",
+                "Sports Injury (Hamstring/Ankle)",
+                "Post-Operative (Knee/Spinal/Shoulder)",
+                "Chronic Pain (Sciatica/Fibromyalgia)",
+                "Tech Neck / Upper Body Tension",
+                "Lower Body Joint Pain"
+            ]
+            focus = st.selectbox("Where shall we focus today?", focus_options)
+            
+            # 🎚️ Dynamic Slider Logic
+            if "Addiction" in focus:
+                comfort = st.select_slider("Craving intensity today?", options=["Low", "Manageable", "Strong", "Severe ⛈️"])
+            elif "Pain" in focus or "Injury" in focus or "Post-Operative" in focus:
+                comfort = st.select_slider("Pain/Discomfort level (1-10)?", options=[str(i) for i in range(1, 11)])
+            else:
+                comfort = st.select_slider("How are you feeling?", options=["1 ⛈️", "2 ☁️", "3 🌤️", "4 ☀️"])
+                
+            story = st.text_area("Tell me more details... (e.g., 'Day 5 post-op' or 'High cravings today')")
+            
             if st.form_submit_button("Next 🤍"):
                 st.session_state.new_user_data["physical"] = {"focus": focus, "comfort": comfort, "story": story}
                 st.session_state.step = 2

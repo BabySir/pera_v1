@@ -1,81 +1,115 @@
-{
-    "patient_id": "P-IND-25-AM",
-    "name": "Arjun Mehta",
-    "age": 25,
-    "condition": "Stage 1 Essential Hypertension; Tobacco Use Disorder (Active); Alcohol Use Disorder (Moderate); Borderline Dyslipidemia",
-    "lifestyle": "High-pressure Software Consultant working 60-70 hours weekly, often across multiple time zones (IST/EST). Work-from-home setup is ergonomically poor, leading to chronic lower back strain. He is a 'social-turned-solitary' smoker and uses alcohol as a chemical 'off-switch' to transition from high-intensity coding to sleep. Despite an athletic past in university football, his current VO2 max is estimated to be significantly below average for his age group.",
-    "diet": "Heavy reliance on ultra-processed foods. Breakfast is usually skipped or replaced by black coffee. Lunch is frequently 'Dal Makhani' or 'Paneer' dishes from local vendors (high sodium/saturated fats). Dinner is often late (11 PM) and accompanied by alcohol and salty snacks (Chakna/Bhujia), which exacerbates morning gastric acidity and hypertension.",
-    "pain_log": [
-        {
-            "date": "2026-04-05",
-            "blood_pressure": "152/98 mmHg",
-            "mood": 3,
-            "activity": "Sunday: Heavy hangover; consumed 6 cigarettes to 'clear head'; ordered pizza; zero physical activity.",
-            "notes": "Severe morning headache (occipital region), likely hypertensive in nature."
+[
+    {
+        "patient_id": "P-IND-25-AM",
+        "name": "Arjun Mehta",
+        "age": 25,
+        "condition": "Stage 1 Essential Hypertension; Tobacco Use Disorder (Active); Alcohol Use Disorder (Moderate); Borderline Dyslipidemia",
+        "lifestyle": "High-pressure Software Consultant working 60-70 hours weekly, often across multiple time zones (IST/EST). Work-from-home setup is ergonomically poor, leading to chronic lower back strain. He is a 'social-turned-solitary' smoker and uses alcohol as a chemical 'off-switch' to transition from high-intensity coding to sleep. Despite an athletic past in university football, his current VO2 max is estimated to be significantly below average for his age group.",
+        "diet": "Heavy reliance on ultra-processed foods. Breakfast is usually skipped or replaced by black coffee. Lunch is frequently 'Dal Makhani' or 'Paneer' dishes from local vendors (high sodium/saturated fats). Dinner is often late (11 PM) and accompanied by alcohol and salty snacks (Chakna/Bhujia), which exacerbates morning gastric acidity and hypertension.",
+        "pain_log": [
+            {
+                "date": "2026-04-05",
+                "blood_pressure": "152/98 mmHg",
+                "mood": 3,
+                "activity": "Sunday: Heavy hangover; consumed 6 cigarettes to 'clear head'; ordered pizza; zero physical activity.",
+                "notes": "Severe morning headache (occipital region), likely hypertensive in nature."
+            },
+            {
+                "date": "2026-04-06",
+                "blood_pressure": "149/94 mmHg",
+                "mood": 5,
+                "activity": "Monday: Back to work; 11 hours of screen time; 12 cigarettes; 4 cups of coffee; no alcohol.",
+                "notes": "Felt 'wired but tired'; strong urge to study new AI frameworks but too exhausted to focus."
+            },
+            {
+                "date": "2026-04-07",
+                "blood_pressure": "144/92 mmHg",
+                "mood": 4,
+                "activity": "Tuesday: Attempted 15-min jog; stopped after 6 mins due to chest tightness and coughing; 10 cigarettes.",
+                "notes": "Psychological frustration high; felt like a 'failure' compared to former athletic self."
+            },
+            {
+                "date": "2026-04-08",
+                "blood_pressure": "147/95 mmHg",
+                "mood": 6,
+                "activity": "Wednesday: High productivity day; 15 cigarettes; celebrated milestone with 3 large whiskeys.",
+                "notes": "Alcohol used as a reward mechanism. Sleep quality reported as poor (4 hours)."
+            },
+            {
+                "date": "2026-04-09",
+                "blood_pressure": "148/96 mmHg",
+                "mood": 4,
+                "activity": "Thursday: 13-hour workday; high stress regarding client deadline; skip-meal cycle.",
+                "notes": "Visible tremors in hands during high-stress meeting."
+            },
+            {
+                "date": "2026-04-10",
+                "blood_pressure": "142/92 mmHg",
+                "mood": 7,
+                "activity": "Friday: Played football for 20 mins; substituted early; 4 beers post-match with team.",
+                "notes": "Mood improved due to social interaction, but physical toll was evident."
+            },
+            {
+                "date": "2026-04-11",
+                "blood_pressure": "145/95 mmHg",
+                "mood": 5,
+                "activity": "Saturday: Rest day; studied system architecture for 4 hours; high nicotine cravings.",
+                "notes": "Restless leg syndrome noted during evening rest."
+            }
+        ],
+        "medical_history": {
+            "vitals_and_labs": {
+                "height": "178 cm",
+                "weight": "89.5 kg",
+                "bmi": "28.2 (Overweight)",
+                "resting_hr": "84 bpm",
+                "hba1c": "5.9% (Pre-diabetic range)",
+                "lipid_profile": "LDL: 155 mg/dL (High); HDL: 38 mg/dL (Low); Triglycerides: 210 mg/dL",
+                "respiratory": "Mild wheezing on exertion; decreased lung capacity noted during recent health checkup."
+            },
+            "clinical_notes": "Patient was prescribed Telmisartan 40mg but admits to poor compliance, often forgetting doses or skipping them when consuming alcohol due to fear of interaction. History of Grade 1 Fatty Liver (NAFLD) noted in 2025 ultrasound.",
+            "family_history": "Paternal: Father (62) has Type 2 Diabetes and Chronic Kidney Disease (Stage 2); history of heavy tobacco use. Maternal: Mother (58) has Hypertension and Generalized Anxiety Disorder. Strong cultural emphasis on 'settling down' (marriage), which Arjun currently perceives as a source of pressure rather than support."
         },
-        {
-            "date": "2026-04-06",
-            "blood_pressure": "149/94 mmHg",
-            "mood": 5,
-            "activity": "Monday: Back to work; 11 hours of screen time; 12 cigarettes; 4 cups of coffee; no alcohol.",
-            "notes": "Felt 'wired but tired'; strong urge to study new AI frameworks but too exhausted to focus."
-        },
-        {
-            "date": "2026-04-07",
-            "blood_pressure": "144/92 mmHg",
-            "mood": 4,
-            "activity": "Tuesday: Attempted 15-min jog; stopped after 6 mins due to chest tightness and coughing; 10 cigarettes.",
-            "notes": "Psychological frustration high; felt like a 'failure' compared to former athletic self."
-        },
-        {
-            "date": "2026-04-08",
-            "blood_pressure": "147/95 mmHg",
-            "mood": 6,
-            "activity": "Wednesday: High productivity day; 15 cigarettes; celebrated milestone with 3 large whiskeys.",
-            "notes": "Alcohol used as a reward mechanism. Sleep quality reported as poor (4 hours)."
-        },
-        {
-            "date": "2026-04-09",
-            "blood_pressure": "148/96 mmHg",
-            "mood": 4,
-            "activity": "Thursday: 13-hour workday; high stress regarding client deadline; skip-meal cycle.",
-            "notes": "Visible tremors in hands during high-stress meeting."
-        },
-        {
-            "date": "2026-04-10",
-            "blood_pressure": "142/92 mmHg",
-            "mood": 7,
-            "activity": "Friday: Played football for 20 mins; substituted early; 4 beers post-match with team.",
-            "notes": "Mood improved due to social interaction, but physical toll was evident."
-        },
-        {
-            "date": "2026-04-11",
-            "blood_pressure": "145/95 mmHg",
-            "mood": 5,
-            "activity": "Saturday: Rest day; studied system architecture for 4 hours; high nicotine cravings.",
-            "notes": "Restless leg syndrome noted during evening rest."
-        }
-    ],
-    "medical_history": {
-        "vitals_and_labs": {
-            "height": "178 cm",
-            "weight": "89.5 kg",
-            "bmi": "28.2 (Overweight)",
-            "resting_hr": "84 bpm",
-            "hba1c": "5.9% (Pre-diabetic range)",
-            "lipid_profile": "LDL: 155 mg/dL (High); HDL: 38 mg/dL (Low); Triglycerides: 210 mg/dL",
-            "respiratory": "Mild wheezing on exertion; decreased lung capacity noted during recent health checkup."
-        },
-        "clinical_notes": "Patient was prescribed Telmisartan 40mg but admits to poor compliance, often forgetting doses or skipping them when consuming alcohol due to fear of interaction. History of Grade 1 Fatty Liver (NAFLD) noted in 2025 ultrasound.",
-        "family_history": "Paternal: Father (62) has Type 2 Diabetes and Chronic Kidney Disease (Stage 2); history of heavy tobacco use. Maternal: Mother (58) has Hypertension and Generalized Anxiety Disorder. Strong cultural emphasis on 'settling down' (marriage), which Arjun currently perceives as a source of pressure rather than support."
+        "psychological_summary": "Arjun operates in a 'Dissonance Loop.' He is intellectually superior and highly ambitious, yet his physical body is failing to keep pace with his mental drive. He experiences 'Imposter Syndrome' not in his career, but in his life\u2014believing he isn't the 'strong, successful man' he presents as. His self-sabotage (smoking/drinking) acts as a defense mechanism against the fear of failing his high-reaching goals; if he fails, he can blame the habits rather than his capability.",
+        "goals": [
+            "Immediate: Reduction of smoking to <3 cigarettes/day within 4 weeks using NRT (Nicotine Replacement Therapy).",
+            "Short-term: Normalize BP to <130/80 mmHg through medication adherence and sodium reduction.",
+            "Medium-term: Lose 10kg to alleviate strain on heart and joints for improved football performance.",
+            "Financial: Diversify investment portfolio to reach 1 Crore INR net worth before age 28.",
+            "Personal: Establish a consistent 'Deep Work' morning routine (5 AM - 8 AM) for learning, replacing late-night coding/drinking sessions.",
+            "Long-term: Marriage readiness and purchasing a 3BHK apartment in a Tier-1 city."
+        ]
     },
-    "psychological_summary": "Arjun operates in a 'Dissonance Loop.' He is intellectually superior and highly ambitious, yet his physical body is failing to keep pace with his mental drive. He experiences 'Imposter Syndrome' not in his career, but in his life—believing he isn't the 'strong, successful man' he presents as. His self-sabotage (smoking/drinking) acts as a defense mechanism against the fear of failing his high-reaching goals; if he fails, he can blame the habits rather than his capability.",
-    "goals": [
-        "Immediate: Reduction of smoking to <3 cigarettes/day within 4 weeks using NRT (Nicotine Replacement Therapy).",
-        "Short-term: Normalize BP to <130/80 mmHg through medication adherence and sodium reduction.",
-        "Medium-term: Lose 10kg to alleviate strain on heart and joints for improved football performance.",
-        "Financial: Diversify investment portfolio to reach 1 Crore INR net worth before age 28.",
-        "Personal: Establish a consistent 'Deep Work' morning routine (5 AM - 8 AM) for learning, replacing late-night coding/drinking sessions.",
-        "Long-term: Marriage readiness and purchasing a 3BHK apartment in a Tier-1 city."
-    ]
-}
+    {
+        "physical": {
+            "focus": "General Wellness",
+            "comfort": "2 \u2601\ufe0f",
+            "story": "I have lot of work but I am wasting my time just scrolling"
+        },
+        "lifestyle": {
+            "work": "Sitting",
+            "sleep": "Medium"
+        },
+        "mental": {
+            "mindset": "Frustrated",
+            "goal": "full energy mode"
+        },
+        "patient_id": "PID-1775899812"
+    },
+    {
+        "physical": {
+            "focus": "Addiction Recovery (Nicotine/Alcohol)",
+            "comfort": "Low",
+            "story": "I have to much work I feel like smoking"
+        },
+        "lifestyle": {
+            "work": "Sitting",
+            "sleep": "Low"
+        },
+        "mental": {
+            "mindset": "Frustrated",
+            "goal": "stop smoking"
+        },
+        "patient_id": "PID-1775901096"
+    }
+]

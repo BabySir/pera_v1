@@ -63,13 +63,36 @@ class PeraBrain:
         return self.llm.generate_response(prompt)[0] # Returns only the response text
 
     def generate_response(self, user_input, user_profile):
-        """Standard chat logic using RAG and Hybrid Parsing."""
+        """Chat logic with Emergency Protocol Intercept."""
+        
+        # 1. Check for Critical Comfort Levels from Step 1
+        comfort_level = str(user_profile.get('physical', {}).get('comfort', ''))
+        focus_area = user_profile.get('physical', {}).get('focus', '')
+        
+        # Define what triggers an emergency
+        is_critical = "Severe" in comfort_level or comfort_level in ["9", "10", "1 ⛈️"]
+        
+        if is_critical:
+            # 🛑 Emergency Intercept: Force RAG to pull acute/flare-up protocols
+            emergency_keywords = [focus_area, "acute", "severe", "flare up", "cravings", "management"]
+            emergency_tip = self.evolution_mgr.query_knowledge(emergency_keywords)
+            
+            prompt = f"""
+            Persona: Medical PeRA (Urgent Care Mode). 
+            The user is reporting CRITICAL discomfort ({comfort_level}) regarding {focus_area}.
+            Medical Protocol to deliver: {emergency_tip}
+            Task: Stop standard chat. Deliver a VERY SHORT, single grounding paragraph (under 50 words). 
+            Focus only on immediate comfort and the absolute first step of the protocol. 
+            Do not ask complex questions. Format the text simply so it is easily read by a screen reader.
+            """
+            return self.llm.generate_response(prompt)[0]
+
+        # 🌱 2. Standard Chat Logic (if not critical)
         anatomy = self.parser.extract_anatomy(user_input)
         context_tags = self.parser.get_llm_context(user_input, self.llm)
         medical_tip = self.evolution_mgr.query_knowledge(anatomy + context_tags)
         
         prompt = self._build_prompt(user_input, user_profile, medical_tip)
-        # Assuming NanoLLM.generate_response returns (text, explanation, context)
         response, _, _ = self.llm.generate_response(prompt)
         return response
 
