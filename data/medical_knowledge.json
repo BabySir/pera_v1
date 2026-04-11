@@ -28,5 +28,96 @@
     "content": "MI technique sequence: 1) Open questions ('What feels most challenging?'), 2) Affirm strengths ('You've made great progress on walks'), 3) Reflective listening ('Sounds like mornings are toughest'), 4) Explore ambivalence ('Part of you wants to quit smoking'). OARS protocol.",
     "evidence_level": "Level A",
     "keywords": ["motivational interviewing", "MI", "OARS", "ambivalence"]
+  },
+  {
+    "section": "Opioid Use Disorder (OUD) Medication-Assisted Treatment",
+    "content": "First-line treatment for OUD involves Medication-Assisted Treatment (MAT) using Buprenorphine or Methadone. Protocol requires combining MAT with cognitive behavioral therapy (CBT). Abrupt tapering significantly increases relapse risk. Monitor for signs of precipitated withdrawal during induction.",
+    "evidence_level": "Level A (Clinical Guidelines)",
+    "keywords": ["addiction", "opioids", "MAT", "buprenorphine", "withdrawal"]
+  },
+  {
+    "section": "Smoking Cessation Urge Surfing",
+    "content": "For acute nicotine cravings, utilize the 'Urge Surfing' technique: acknowledge the craving without fighting it, visualize it as an ocean wave that peaks and subsides within 3-5 minutes. Combine with Nicotine Replacement Therapy (NRT) for a 60% higher success rate.",
+    "evidence_level": "Level A (Systematic Reviews)",
+    "keywords": ["addiction", "smoking", "cravings", "urge surfing", "NRT"]
+  },
+  {
+    "section": "Alcohol Use Disorder - Triggers and Relapse Prevention",
+    "content": "Identify the HALT triggers (Hungry, Angry, Lonely, Tired). Patients must develop a distress tolerance plan for each. If prescribed Naltrexone, ensure patient is opioid-free for 7-10 days before starting to avoid severe withdrawal.",
+    "evidence_level": "Level A",
+    "keywords": ["addiction", "alcohol", "relapse prevention", "triggers", "HALT"]
+  },
+  {
+    "section": "Acute Hamstring Strain Management",
+    "content": "First 48 hours: Avoid aggressive stretching which can worsen micro-tears. Apply ice (15 mins every 2 hours). Days 3-7: Begin pain-free submaximal isometric contractions. Progress to eccentric loading (e.g., Nordic hamstring curls) only when normal gait is restored.",
+    "evidence_level": "Level B (Sports Medicine Protocols)",
+    "keywords": ["sports injury", "hamstring", "strain", "eccentric loading"]
+  },
+  {
+    "section": "Concussion Return-to-Play Protocol",
+    "content": "Strict 6-step protocol. Each step requires 24 hours of symptom-free completion. 1) Symptom-limited activity. 2) Light aerobic exercise (walking, <70% max heart rate). 3) Sport-specific exercise (running drills, no head impact). 4) Non-contact training drills. 5) Full contact practice. 6) Return to sport.",
+    "evidence_level": "Level A (Consensus Statement)",
+    "keywords": ["sports injury", "concussion", "return to play", "neurology"]
+  },
+  {
+    "section": "Lateral Ankle Sprain Grade II",
+    "content": "Immobilize briefly (1-3 days) with a functional brace. Initiate early weight-bearing as tolerated to stimulate tissue repair. Perform proprioceptive balance training (single-leg stance on foam) daily for 6 weeks to prevent chronic ankle instability.",
+    "evidence_level": "Level A",
+    "keywords": ["sports injury", "ankle sprain", "ligament", "balance training"]
+  },
+  {
+    "section": "Total Knee Arthroplasty (TKA) Post-Op Phase 1",
+    "content": "Weeks 0-2 Post-Op Goals: Achieve 0° to 90° Range of Motion (ROM). Prevent Deep Vein Thrombosis (DVT) via ankle pumps. Do not place a pillow directly under the knee while resting, as this promotes flexion contractures. Use heel slides and quad sets.",
+    "evidence_level": "Level A (Orthopedic Guidelines)",
+    "keywords": ["post-operative", "total knee replacement", "TKA", "ROM", "DVT"]
+  },
+  {
+    "section": "Lumbar Spinal Fusion Precautions",
+    "content": "Post-operative BLT precautions for first 6-12 weeks: No Bending at the waist, no Lifting over 8-10 lbs (a gallon of milk), no Twisting of the spine. Instruct patient in log-rolling technique for getting in and out of bed.",
+    "evidence_level": "Level A",
+    "keywords": ["post-operative", "spinal fusion", "lumbar", "BLT precautions"]
+  },
+  {
+    "section": "Rotator Cuff Repair (Massive Tear) Weeks 1-4",
+    "content": "Strict immobilization in abduction sling. NO active range of motion of the shoulder. Passive Range of Motion (PROM) only within surgeon's specified limits (typically forward flexion to 90°). Perform active elbow, wrist, and hand exercises to prevent stiffness.",
+    "evidence_level": "Level B",
+    "keywords": ["post-operative", "rotator cuff", "shoulder", "PROM"]
+  },
+  {
+    "section": "Pain Neuroscience Education (PNE)",
+    "content": "For chronic central sensitization: Educate the patient that 'hurt does not equal harm'. Chronic pain acts like an overly sensitive car alarm that triggers even when there is no tissue damage. Reframing the threat value of pain reduces kinesiophobia (fear of movement).",
+    "evidence_level": "Level A (Systematic Reviews)",
+    "keywords": ["chronic pain", "PNE", "central sensitization", "kinesiophobia"]
+  },
+  {
+    "section": "Complex Regional Pain Syndrome (CRPS)",
+    "content": "Utilize Graded Motor Imagery (GMI) program. Step 1: Left/Right discrimination apps. Step 2: Explicit motor imagery (imagining moving the limb). Step 3: Mirror box therapy. Avoid aggressive physical manipulation that spikes the allodynia (pain from non-painful stimuli).",
+    "evidence_level": "Level B",
+    "keywords": ["chronic pain", "CRPS", "mirror therapy", "neuroplasticity"]
+  },
+  {
+    "section": "Fibromyalgia Aerobic Protocol",
+    "content": "Avoid 'boom and bust' cycles of over-exercising on good days and crashing. Prescribe low-intensity, low-impact aerobic exercise (warm water therapy, recumbent biking) starting at just 5-10 minutes daily. Gradual progression is key to avoid triggering a flare.",
+    "evidence_level": "Level A",
+    "keywords": ["chronic pain", "fibromyalgia", "pacing", "aerobic exercise"]
+  },
+  {
+    "section": "Adhesive Capsulitis (Frozen Shoulder) - Freezing Stage",
+    "content": "During the highly painful 'freezing' stage, aggressive stretching will exacerbate inflammation. Focus on pain relief: intra-articular corticosteroid injection (if prescribed) and gentle, pain-free pendulum exercises. Patient should avoid reaching behind the back.",
+    "evidence_level": "Level B",
+    "keywords": ["general PT", "frozen shoulder", "adhesive capsulitis", "pendulum"]
+  },
+  {
+    "section": "Fall Prevention - Otago Exercise Program",
+    "content": "For older adults at risk of falls: Implement the Otago protocol. Focus on lower limb muscle strengthening (calf raises, sit-to-stand) and balance retraining (tandem walking, backward walking). Perform 3 times a week. Reduces fall risk by 35%.",
+    "evidence_level": "Level A (RCTs)",
+    "keywords": ["general PT", "geriatrics", "fall prevention", "balance", "Otago"]
+  },
+  {
+    "section": "Patellofemoral Pain Syndrome (Runner's Knee)",
+    "content": "Address proximal control: strengthen hip abductors and external rotators (e.g., clamshells, banded side steps) to prevent the femur from rotating inward under the kneecap. Avoid deep squats past 90 degrees during the acute flare-up phase.",
+    "evidence_level": "Level A",
+    "keywords": ["general PT", "runner's knee", "patellofemoral", "hip strength"]
   }
+
 ]
