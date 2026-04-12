@@ -1,105 +1,102 @@
 # Personalized e-Rehabilitation Assistant [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/) [![HuggingFace](https://img.shields.io/badge/HuggingFace-4285F4?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-***MTech AI/ML Thesis Project: PeRA "Personal e Rehablitation Assistant***
+***MTech AI/ML Thesis Project: PeRA "Personal e-Rehabilitation Assistant"***
 
-### Nano-LLM + RAG + LoRA + XAI for Psychological & Physical Rehabilitation
+### Nano-LLM + RAG + LoRA + Heuristic XAI for Psychological & Physical Rehabilitation
 
 [![Paper](https://img.shields.io/badge/Paper-ArXiv-blue?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org) [![Demo](https://img.shields.io/badge/Demo-Streamlit-orange?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 
-**Thesis Project** - Optimized for Edge Devices & Google Cloud
+**Thesis Project** - Optimized for Low End devices
 **Author**: Sagar Sharma  
 **Memory**: ~45MB (LoRA) + 7GB (quantized base)  
-**Target**: Edge Devices (4GB RAM) / Google Cloud Run📖 , Jupyter workflows
+**Target**: Edge Devices (4GB RAM)/ Google Cloud Run 📖 , Jupyter workflows
 
-**Status**: Ready for Deployment
+**Status**: Ready for Deployment.
 
 ## 🎯 Abstract
 
-This project presents a production-ready e-Rehabilitation Assistant designed to bridge the gap between physical therapy and psychological support (CBT/MI). Unlike generic chatbots, this system utilizes a Nano-LLM (Phi-3 Mini) architecture optimized for resource-constrained environments.By integrating Retrieval-Augmented Generation (RAG) for medical accuracy, Low-Rank Adaptation (LoRA) for patient persona adaptation, and Explainable AI (XAI) for clinical transparency, the system delivers personalized, trustworthy care without compromising data privacy.
+This project presents a production-ready e-Rehabilitation Assistant designed to bridge the gap between physical therapy and psychological support (CBT/MI). Unlike generic chatbots, this system utilizes a Nano-LLM (Phi-3 Mini) architecture optimized for resource-constrained environments. By integrating Retrieval-Augmented Generation (RAG) for medical accuracy, Low-Rank Adaptation (LoRA) for patient persona adaptation, and a Memory-Safe Explainable AI (XAI) for clinical transparency, the system delivers personalized, trustworthy care without compromising data privacy or local hardware limits.
 
-A novel edge-deployable e-Rehabilitation system combining **Nano-LLM (Phi-3-mini 3.8B)** with **Retrieval-Augmented Generation (RAG)**, **LoRA personalization**, and **real-time XAI**. Delivers **CBT/MI-based psychological support** alongside **personalized physical therapy recommendations** using HIPAA-compliant local vector storage.
+
+A novel edge-deployable e-Rehabilitation system combining **Nano-LLM (Phi-3-mini 3.8B)** with **Retrieval-Augmented Generation (RAG)**, **LoRA personalization**, and **Memory-Safe XAI**. Delivers **CBT/MI-based psychological support** alongside **personalized physical therapy recommendations** using HIPAA-compliant local vector storage.
 
 A production-ready AI-powered rehabilitation assistant that combines **Nano-LLM (Phi-3)**, **RAG**, **LoRA fine-tuning**, and **XAI explainability** for personalized patient care.
 
 
-**Patient Query → Hybrid RAG → LoRA-tuned Nano-LLM → SHAP/LIME XAI → Trustworthy Response**
+**Patient Query → 3-Layer Safety Shield → Hybrid RAG → LoRA-tuned Nano-LLM → Heuristic XAI → Trustworthy Response**
 
 
 
 ## ✨ Features
 
-- **Personalized Care**: Patient-specific recommendations using medical history & pain logs
-- **RAG-Powered**: Real-time retrieval from medical guidelines + patient data
-- **Nano-LLM**: Phi-3 mini (4K) + LoRA fine-tuning (~50MB adapter weights)
-- **XAI Explainable**: SHAP/LIME for recommendation transparency
-- **Production Ready**: Streamlit UI, ChromaDB vector store, Google Cloud deployable
-- **CBT/MI Style**: Cognitive Behavioral Therapy & Motivational Interviewing responses
+- **Personalized Care**: Patient-specific recommendations using medical history & daily timestamped pain logs.
+- **Hybrid RAG-Powered**: Real-time retrieval from medical guidelines + patient data via ChromaDB.
+- **Nano-LLM**: Phi-3 mini (4K) optimized for edge devices (runs efficiently on 4GB RAM).
+- **3-Layer Safety Architecture**: Pre-LLM logic filter (`SafetyGuard`) blocks prompt injection, profanity, and detects crisis keywords before processing.
+- **Memory-Safe XAI**: Lightweight heuristic explainer provides conversational clinical transparency without heavy LLM forward-passes.
+- **Continuous Context**: Rolling chat memory maintains natural conversation flow.
 
 ## 📂 Project StructurePlaintext
+
+```
 e-Rehabilitation_Assistant/
-
-├── README.md                 # 📖 Documentation
-
+├── README.md                # 📖 Documentation
 ├── requirements.txt          # 📦 Dependencies
-
 ├── config.yaml               # ⚙️ Hyperparameters
-
 ├── populate_data.sh          # 🚀 ONE-CLICK SETUP SCRIPT
-
 ├── data/                     # 🗂️ Data Storage
-
 │   ├── sample_patient_data.json
-
-│   └── medical_guidelines.pdf
-
+│   ├── milestones.json       # Gamification & tracking
+│   ├── crisis_keywords.txt   # SafetyGuard wordlists
+│   └── toxic_keywords.txt    # SafetyGuard wordlists
 ├── models/                   # 🤖 Model Storage [~7.5GB total]
-
 │   ├── finetuned_phi/        # LoRA adapter weights (~50MB)
-
 │   └── phi-3-mini-4k-instruct/ # Base model cache
-
 ├── vector_db/                # 🗃️ ChromaDB Storage
-
-│   └── chroma/               # SQLite + Embeddings
-
+│   └── rehab_knowledge/      # SQLite + Embedding
 ├── src/                      # 🎯 Source Code
-
 │   ├── __init__.py
-
-│   ├── rag_retriever.py      # RAG pipeline logic
-
-│   ├── nano_llm.py           # Model loader & LoRA trainer
-
-│   ├── xai_explainer.py      # SHAP/LIME logic
-
-│   ├── personalization.py    # Patient data manager
-
-│   └── app.py                # Streamlit Dashboard
-
+│   ├── app.py                # Streamlit Dashboard & UI Shield
+│   ├── engine.py             # PeraBrain: Memory & Prompt Vault
+│   ├── safety.py             # SafetyGuard: Logic Filter
+│   ├── xai_explainer_shap.py # Memory-Safe Heuristic XAI
+│   ├── personalization.py    # Patient Data Manager
+│   ├── vector_manager.py     # ChromaDB Evolution Manager
+│   ├── logic_parser.py       # Input Parser
+│   ├── rag_retriever.py      # LangChain Pipeline
+│   └── nano_llm.py           # Model loader & LoRA 
+trainer
 └── notebooks/                # 📓 Jupyter Experiments
-
     ├── 01_full_pipeline.ipynb
-
     ├── 02_finetune_demo.ipynb
-
     └── 03_rag_demo.ipynb
+```
+
 
 ## 🚀 Quick Start
 
-1. Clone & InstallBashgit clone https://github.com/your-username/e-Rehabilitation_Assistant.git
-`cd e-Rehabilitation_Assistant`
-`pip install -r requirements.txt`
+1. Clone & InstallBashgit 
+
+git clone https://github.com/your-username/e-Rehabilitation_Assistant.git
+
+cd e-Rehabilitation_Assistant
+
+pip install -r requirements.txt
 
 2. Initialize SystemRun the helper script to download the base model, generate dummy patient data, and build the vector database automatically.
 Bash
-`chmod +x populate_data.sh`
+
+ `chmod +x populate_data.sh`
+
 `./populate_data.sh`
 
 #Output: 
 ✅ Creates: models/, vector_db/, data/ automatically3. 
 Launch ApplicationBash
+
 `streamlit run src/app.py`
-Access the dashboard at http://localhost:8501🔬 
+
+Access the dashboard at `http://localhost:8501`🔬 
 
 ## Technical Demos
 ### A. Fine-Tuning (LoRA)Adapt the model to a specific patient's communication style without retraining the entire network.Python
@@ -142,34 +139,45 @@ print(docs)
   --cpu 2
 ```
 
+### D. 🔒 Customizing Safety Filters
+PeRA's safety filters are decoupled from the core Python logic for easy updates. To add new protected words or slang:
+
+Open data/toxic_keywords.txt or data/crisis_keywords.txt.
+
+Add the new phrase on a new line.
+
+Restart the Streamlit server. The SafetyGuard will automatically apply the new rules using strict word-boundary regex.
+
 ## 🏗️ System Architecture
 
 The pipeline ensures that every response is grounded in medical fact (RAG) and tailored to the patient's emotional state (LoRA).
-Code snippetgraph LR
-    
-    A[Patient Query] --> B(RAG Retriever)
-    
-    B -->|Medical Context + History| C{Nano-LLM Phi-3}
-    
-    D[LoRA Adapter] -->|Persona Weights| C
-    
-    C --> E[XAI Explainer]
-    
-    E -->|SHAP Values| F[Streamlit UI]
 
-┌─────────────────┐ ┌──────────────────┐ ┌─────────────────┐
-│ Patient │───▶│ Hybrid RAG │───▶│ Nano-LLM + │
-│ Interface │ │ (ChromaDB + │ │ LoRA (Phi-3) │
-│ (Streamlit) │ │ SentenceTransf.) │ │ + XAI (SHAP) │
-└─────────────────┘ └──────────────────┘ └─────────────────┘
-│ │ │
-▼ ▼ ▼
-┌─────────────────┐ ┌──────────────────┐ ┌─────────────────┐
-│ Personalized │ │ Medical KG + │ │ Explainable │
-│ Patient Data │ │ Guidelines │ │ Response │
-└─────────────────┘ └──────────────────┘ └─────────────────┘
+🧑‍💻 User Flow
+______________________
+Step 1 (Checking In): User logs their physical focus, comfort level, and subjective story. (Secured by SafetyGuard)
+
+Step 2 (Your Day): User logs their activity level and sleep quality.
+
+Step 3 (The North Star): User defines their current mindset and overarching recovery goal. (Secured by SafetyGuard)
+
+Step 4 (Daily Ritual & Chat): * Part A: User logs daily energy and gratitude to trigger a personalized, empathetic greeting.
+
+Part B: Seamless transition into a continuous, context-aware chat interface supported by RAG and XAI.
+
+(Users can reset their day/memory at any time using the "Start New Life 🌅" button in the sidebar).
 
 
+┌┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│ Patient         │───▶ │ 3-Layer Safety   │───▶ │ Hybrid RAG      │
+│ Interface       │     │ Shield (Regex/   │     │ (ChromaDB +     │
+│ (Streamlit)     │     │ Fallback Logic)  │     │ SentenceTransf.)│
+└─────────────────┘     └──────────────────┘     └─────────────────┘
+                                                          │
+                                                          ▼
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│ Conversational  │ ◀───│ Nano-LLM +       │ ◀───│ Medical KG +    │
+│ XAI Explainer   │     │ LoRA (Phi-3)     │     │ Guidelines      │
+└─────────────────┘     └──────────────────┘     └─────────────────┘
 
 
 ## 📊 Key Technical Features
@@ -179,9 +187,9 @@ Code snippetgraph LR
 | **Nano-LLM** | Phi-3-mini (3.8B, Q4) | 4GB RAM, <2s latency |
 | **RAG Pipeline** | ChromaDB + all-MiniLM-L6-v2 | 85%+ context relevance |
 | **Personalization** | LoRA (r=16) | Patient-specific responses |
-| **Explainability** | SHAP + LIME | Clinical trust & validation |
+| **Explainability** | SHAP | Clinical trust & validation |
 | **Privacy** | Local vector DB | HIPAA/GDPR compliant |
-
+| **Safety Shield** | Regex + Dynamic Dictionary | Pre-LLM crisis & prompt injection blocking |
 
 
 ## 🔬 Research Contributions
@@ -254,6 +262,32 @@ print(f"Response: {response}")
 print(f"XAI: {explainer.format(shap_values)}")
 ```
 
+# A. Fine-Tuning (LoRA)
+Adapt the model to a specific patient's communication style without retraining the entire network.
+
+notebooks/02_finetune_demo.ipynb
+```from src.nano_llm import NanoLLM
+
+llm = NanoLLM()
+training_data = [
+    {"prompt": "I feel sad and my knee hurts when I walk.",
+     "response": "I'm sorry to hear that. Let's try 3 seated leg lifts?"}
+]
+llm.fine_tune(training_data)
+```
+
+# B. RAG Retrieval
+Fetch medical context relevant to the specific user query.
+
+notebooks/03_rag_demo.ipynb
+
+```from src.rag_retriever import RAGRetriever
+
+rag = RAGRetriever()
+docs = rag.retrieve("knee pain exercises for IT worker", "P-ID")
+print(docs)
+```
+
 
 ## 🔗 Related Work & Citations
 
@@ -261,11 +295,12 @@ print(f"XAI: {explainer.format(shap_values)}")
 - [LoRA: Low-Rank Adaptation](https://arxiv.org/abs/2106.09685)
 - [RAG Survey](https://arxiv.org/abs/2402.08328)
 
+
 ## 📄 License & Acknowledgments
 
 **License**: [MIT](LICENSE) - Free for research & clinical use
 
-**MTech Thesis** - AI/ML, Graphic Era University, Dehradun, India
+**MTech Thesis** - AI/ML, SAIDE, IIT Jodhpur
 
 **Tech Stack**: Streamlit • Phi-3 • ChromaDB • LoRA • SHAP • GCP
 
@@ -274,13 +309,30 @@ print(f"XAI: {explainer.format(shap_values)}")
 **Edge DevicesRequirements**: 8GB RAM minimum (4GB for model, remaining for OS/Overhead).
 **Process**: The system detects CUDA automatically; if unavailable, it falls back to quantized CPU inference (OpenVINO/ONNX compatible).
 
-**Future RoadmapMulti-modal Input**: Accept video feeds for pose estimation (OpenCV) to correct exercise form.Wearable Integration: Real-time heart rate syncing via Fitbit/Apple Health APIs.Voice Interface: Integration with OpenAI Whisper for voice-to-text interaction.
+**Future RoadmapMulti-modal And current challenges**: 
+
+Multi-modal RAG: Integrating Computer Vision (pose estimation) and wearable APIs to track physical form and heart rate.
+
+Federated LoRA: Allowing multiple patient models to learn from each other securely without sharing private data.
+
+Voice Integration: Adding iOS/Swift support with Whisper STT for hands-free therapy.
+
+Multi-Agent Coordination: Connecting the patient's PeRA agent directly with a human therapist's dashboard.
+
+
  
 **Federated Learning**: Privacy-preserving multi-patient model updates.🤝 
  
-🤝 **Contributing & LicenseLicense**: MIT License - Free for research & clinical use.Contributing: PRs welcome for new medical datasets or LoRA adapters.M.Tech Thesis Project 2026 | Sagar Sharma
+🤝 **Contributing & LicenseLicense**: MIT License - Free for research & clinical use.
+
+ Contributing: PRs welcome for new medical datasets or LoRA adapters.
+
+ M.Tech Thesis Project 2026 
+
+ Sagar Sharma
+
 ---
 
 ⭐ **Star this repo** | 🔔 **Watch for updates** | 💬 **Open an issue**
 
-*Built for accessible, trustworthy e-Rehabilitation (2025)*
+*Built for accessible, trustworthy e-Rehabilitation (2025-26)*
