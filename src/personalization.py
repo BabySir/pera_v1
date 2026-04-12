@@ -14,29 +14,29 @@ class PatientDataManager:
         with open(self.data_path, 'r', encoding='utf-8') as f:
             try:
                 data = json.load(f)
-                # Use .get() to provide a fallback 'unknown' key to prevent KeyErrors
-                return {p.get('patient_id', 'unknown'): p for p in data}
+                # Handle it whether it's saved correctly as a List or accidentally as a Dict
+                if isinstance(data, list):
+                    return {p.get('patient_id', 'unknown'): p for p in data if isinstance(p, dict)}
+                elif isinstance(data, dict):
+                    return {data.get('patient_id', 'unknown'): data}
+                return {}
             except json.JSONDecodeError:
                 return {}
     
     def get_patient_context(self, patient_id: str) -> str:
-        """Convert nested patient data to RAG-friendly context string."""
         if patient_id not in self.patients:
             return "No specific patient history found. Proceed with general motherly care."
         
         p = self.patients[patient_id]
         
-        # Extract the data blocks
         physical = p.get('physical', {})
         lifestyle = p.get('lifestyle', {})
         mental = p.get('mental', {})
-        
 
-        # Safe-Access Pattern: Check if lifestyle is a dictionary or just a string
+        # Safe-Access Pattern
         if isinstance(lifestyle, dict):
             work_info = lifestyle.get('work', 'Not specified')
         else:
-            # If it's a string, use it directly as the work info
             work_info = lifestyle if lifestyle else 'Not specified'
             
         context = f"""

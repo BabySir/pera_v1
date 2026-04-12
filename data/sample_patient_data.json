@@ -4,7 +4,10 @@
         "name": "Arjun Mehta",
         "age": 25,
         "condition": "Stage 1 Essential Hypertension; Tobacco Use Disorder (Active); Alcohol Use Disorder (Moderate); Borderline Dyslipidemia",
-        "lifestyle": "High-pressure Software Consultant working 60-70 hours weekly, often across multiple time zones (IST/EST). Work-from-home setup is ergonomically poor, leading to chronic lower back strain. He is a 'social-turned-solitary' smoker and uses alcohol as a chemical 'off-switch' to transition from high-intensity coding to sleep. Despite an athletic past in university football, his current VO2 max is estimated to be significantly below average for his age group.",
+        "lifestyle": {
+            "work": "Sedentary/Desk",
+            "sleep": "Fair"
+        },
         "diet": "Heavy reliance on ultra-processed foods. Breakfast is usually skipped or replaced by black coffee. Lunch is frequently 'Dal Makhani' or 'Paneer' dishes from local vendors (high sodium/saturated fats). Dinner is often late (11 PM) and accompanied by alcohol and salty snacks (Chakna/Bhujia), which exacerbates morning gastric acidity and hypertension.",
         "pain_log": [
             {
@@ -52,9 +55,19 @@
             {
                 "date": "2026-04-11",
                 "blood_pressure": "145/95 mmHg",
-                "mood": 5,
-                "activity": "Saturday: Rest day; studied system architecture for 4 hours; high nicotine cravings.",
-                "notes": "Restless leg syndrome noted during evening rest."
+                "mood": "motivated",
+                "activity": "Work: Sedentary/Desk | Sleep: Good",
+                "notes": "i quit alcohol and smoking 1 month completed",
+                "focus_area": "General Wellness & Ergonomics",
+                "comfort_level": "4 \u2600\ufe0f"
+            },
+            {
+                "date": "2026-04-12",
+                "focus_area": "General Wellness & Ergonomics",
+                "comfort_level": "2 \u2601\ufe0f",
+                "mood": "motivated",
+                "activity": "Work: Sedentary/Desk | Sleep: Fair",
+                "notes": "sure feeling good"
             }
         ],
         "medical_history": {
@@ -78,7 +91,16 @@
             "Financial: Diversify investment portfolio to reach 1 Crore INR net worth before age 28.",
             "Personal: Establish a consistent 'Deep Work' morning routine (5 AM - 8 AM) for learning, replacing late-night coding/drinking sessions.",
             "Long-term: Marriage readiness and purchasing a 3BHK apartment in a Tier-1 city."
-        ]
+        ],
+        "physical": {
+            "focus": "General Wellness & Ergonomics",
+            "comfort": "2 \u2601\ufe0f",
+            "story": "sure feeling good"
+        },
+        "mental": {
+            "mindset": "motivated",
+            "goal": "quit alcohol and smoking for life and make an awesome healthy life"
+        }
     },
     {
         "physical": {
@@ -111,5 +133,21 @@
             "goal": "stop smoking"
         },
         "patient_id": "PID-1775901096"
+    },
+    {
+        "physical": {
+            "focus": "Addiction Recovery (Nicotine/Alcohol)",
+            "comfort": "Low",
+            "story": "Lot of work is there getting craving for smoke"
+        },
+        "lifestyle": {
+            "work": "Mixed",
+            "sleep": "Low"
+        },
+        "mental": {
+            "mindset": "Frustrated",
+            "goal": "stop smoking"
+        },
+        "patient_id": "PID-1775901748"
     }
 ]
