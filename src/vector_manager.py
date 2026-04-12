@@ -9,8 +9,14 @@ class EvolutionManager:
 
     def query_knowledge(self, keywords):
         """Retrieves the most relevant tip from the database."""
-        # Join the list of keywords into a single search string
-        query_text = " ".join(keywords)
+        if not keywords:
+            return "Focus on gentle consistency."
+            
+        if isinstance(keywords, list):
+            query_text = " ".join(keywords)
+        else:
+            query_text = str(keywords)
+            
         results = self.collection.query(query_texts=[query_text], n_results=1)
         
         if results['documents'] and results['documents'][0]:
@@ -41,20 +47,13 @@ class EvolutionManager:
         ids = []
         
         for index, item in enumerate(data):
-            # Structure the text so the LLM understands the context clearly
-            content = f"Topic: {item['section']}\nGuideline: {item['content']}\nEvidence: {item['evidence_level']}"
-            
+            content = f"Topic: {item.get('section', '')}\nGuideline: {item.get('content', '')}\nEvidence: {item.get('evidence_level', '')}"
             documents.append(content)
-            # ChromaDB requires metadata values to be strings, ints, or floats (not lists)
+            
             keyword_string = ", ".join(item.get('keywords', []))
-            metadatas.append({"section": item['section'], "keywords": keyword_string})
+            metadatas.append({"section": item.get('section', ''), "keywords": keyword_string})
             ids.append(f"clinical_rule_{index}")
         
-        # Batch add to ChromaDB
         if documents:
-            self.collection.add(
-                documents=documents,
-                metadatas=metadatas,
-                ids=ids
-            )
+            self.collection.add(documents=documents, metadatas=metadatas, ids=ids)
             print(f"Successfully ingested {len(documents)} clinical guidelines into PeRA's brain! 🧠")

@@ -1,44 +1,98 @@
 import streamlit as st
 import json
 import os
-import time
+from datetime import datetime
 from src.engine import PeraBrain
-from src.nano_llm import NanoLLM 
+from src.nano_llm import NanoLLM
 
-def save_upgrade_profile(profile_data):
+# --- DYNAMIC SAVE & PAIN LOG LOGIC ---
+def save_upgrade_profile(new_data):
     file_path = 'data/sample_patient_data.json'
     os.makedirs('data', exist_ok=True)
-    
-    # Generate a unique ID if it's missing
-    if 'patient_id' not in profile_data:
-        profile_data['patient_id'] = f"PID-{int(time.time())}"
     
     all_profiles = []
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             try:
                 all_profiles = json.load(f)
-            except (json.JSONDecodeError, FileNotFoundError):
+            except json.JSONDecodeError:
                 all_profiles = []
                 
-    all_profiles.append(profile_data)
+    user_found = False
+    today_date = datetime.now().strftime("%Y-%m-%d")
+    
+    for i, profile in enumerate(all_profiles):
+        if profile.get('patient_id') == new_data.get('patient_id'):
+            # 1. Update root level
+            all_profiles[i].update(new_data)
+            
+            # 2. Push to pain_log array
+            if "pain_log" not in all_profiles[i]:
+                all_profiles[i]["pain_log"] = []
+                
+            phys = new_data.get("physical", {})
+            life = new_data.get("lifestyle", {})
+            ment = new_data.get("mental", {})
+            
+            log_entry = {
+                "date": today_date,
+                "focus_area": phys.get("focus", ""),
+                "comfort_level": phys.get("comfort", ""),
+                "mood": ment.get("mindset", ""),
+                "activity": f"Work: {life.get('work', '')} | Sleep: {life.get('sleep', '')}",
+                "notes": phys.get("story", "")
+            }
+            
+            logged_today = False
+            for j, log in enumerate(all_profiles[i]["pain_log"]):
+                if log.get("date") == today_date:
+                    clean_entry = {k: v for k, v in log_entry.items() if v}
+                    all_profiles[i]["pain_log"][j].update(clean_entry)
+                    logged_today = True
+                    break
+                    
+            if not logged_today:
+                if phys or life or ment:
+                    all_profiles[i]["pain_log"].append(log_entry)
+            
+            user_found = True
+            break
+            
+    if not user_found:
+        all_profiles.append(new_data)
+        
     with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(all_profiles, f, indent=4)
 
 @st.cache_resource
 def load_pera_brain():
-    my_model = NanoLLM() 
-    return PeraBrain(nano_llm=my_model)
+    my_model = NanoLLM()
+    return PeraBrain(my_model)
 
 def main():
     st.set_page_config(page_title="PeRA - Your Life Upgrade", page_icon="🌱", layout="wide")
 
+    # --- SET ACTIVE USER ---
+    ACTIVE_USER_ID = "P-IND-25-AM"
+
     if 'step' not in st.session_state:
         st.session_state.step = 1
+        
     if 'new_user_data' not in st.session_state:
-        st.session_state.new_user_data = {}
+        st.session_state.new_user_data = {"patient_id": ACTIVE_USER_ID}
 
     brain = load_pera_brain()
+
+    st.title("PeRA 🌱: Personalized e-Rehab Assistant")
+
+    # --- SIDEBAR CONTROLS ---
+    with st.sidebar:
+        st.markdown("### 🌱 Journey Controls")
+        if st.button("Start New Life 🌅"):
+            # Clear memory to trigger the Ritual again
+            st.session_state.messages = []
+            st.session_state.step = 4 # Jump straight to ritual if they are already onboarded
+            st.rerun()
 
     # --- Step 1: Physical Focus ---
     if st.session_state.step == 1:
@@ -55,7 +109,6 @@ def main():
             ]
             focus = st.selectbox("Where shall we focus today?", focus_options)
             
-            # 🎚️ Dynamic Slider Logic
             if "Addiction" in focus:
                 comfort = st.select_slider("Craving intensity today?", options=["Low", "Manageable", "Strong", "Severe ⛈️"])
             elif "Pain" in focus or "Injury" in focus or "Post-Operative" in focus:
@@ -63,80 +116,115 @@ def main():
             else:
                 comfort = st.select_slider("How are you feeling?", options=["1 ⛈️", "2 ☁️", "3 🌤️", "4 ☀️"])
                 
-            story = st.text_area("Tell me more details... (e.g., 'Day 5 post-op' or 'High cravings today')")
+            story = st.text_area("Tell me more details...")
             
             if st.form_submit_button("Next 🤍"):
-                st.session_state.new_user_data["physical"] = {"focus": focus, "comfort": comfort, "story": story}
-                st.session_state.step = 2
-                st.rerun()
+                is_safe, flag_msg = brain.safety.screen_input(story)
+                
+                if not is_safe:
+                    st.error(flag_msg) # Block progression and show warning
+                else:
+                    st.session_state.new_user_data["physical"] = {"focus": focus, "comfort": comfort, "story": story}
+                    save_upgrade_profile(st.session_state.new_user_data)
+                    st.session_state.step = 2
+                    st.rerun()
 
-    # --- Step 2: Daily Rhythm ---
+    # --- Step 2: Lifestyle Check ---
     elif st.session_state.step == 2:
-        st.header("🕰️ Step 2: Your Daily Rhythm")
+        st.header("🕰️ Step 2: Your Day")
         with st.form("step2_form"):
-            work = st.selectbox("Working hours style?", ["Sitting", "Mixed", "Active"])
-            sleep = st.select_slider("Morning energy?", options=["Low", "Medium", "High"])
+            work = st.selectbox("Current Work/Activity Level:", ["Sedentary/Desk", "Light Activity", "Heavy Manual Labor"])
+            sleep = st.select_slider("Sleep Quality:", options=["Poor", "Fair", "Good", "Excellent"])
+            
             if st.form_submit_button("Next 🤍"):
                 st.session_state.new_user_data["lifestyle"] = {"work": work, "sleep": sleep}
+                save_upgrade_profile(st.session_state.new_user_data)
                 st.session_state.step = 3
                 st.rerun()
 
     # --- Step 3: Mindset & Goal ---
     elif st.session_state.step == 3:
-        st.header("🧠 Step 3: Mind-Body Connection")
+        st.header("🏔️ Step 3: The North Star")
         with st.form("step3_form"):
-            mindset = st.radio("Current feeling?", ["Worried", "Determined", "Frustrated"])
-            goal = st.text_input("Your 'Big Win' goal?", placeholder="e.g. Hiking...")
-            if st.form_submit_button("Complete ✨"):
-                st.session_state.new_user_data["mental"] = {"mindset": mindset, "goal": goal}
-                save_upgrade_profile(st.session_state.new_user_data)
-                st.session_state.step = 4
-                st.rerun()
-
-    # --- Step 4: Completion ---
-    elif st.session_state.step == 4:
-        st.balloons()
-        st.success("### Profile Locked In! 🎉")
-        if st.button("Start Chatting"):
-            st.session_state.step = 5 
-            st.rerun()
-
-    # --- Step 5: Chat, Ritual, & Progress ---
-    elif st.session_state.step == 5:
-        progress_pct, current_badge = brain.get_progress_data()
-        
-        # Ribbon and Badge 🎗️
-        col1, col2 = st.columns([4, 1])
-        with col1:
-            st.progress(progress_pct / 100, text=f"Path to Mastery: {progress_pct}%")
-        with col2:
-            st.subheader(current_badge)
-
-        if 'ritual_complete' not in st.session_state:
-            st.info("🌅 Good morning! Ritual time.")
-            energy = st.select_slider("Energy 🔋", options=[1, 2, 3, 4, 5], value=3)
-            gratitude = st.text_input("One small win? ☀️")
+            mindset = st.text_input("Current state of mind:")
+            goal = st.text_input("What is your North Star Goal?")
             
-            if st.button("Rise and Shine 🤍"):
-                if gratitude:
-                    st.audio("https://www.myinstants.com/media/sounds/naruto-main-theme-cut.mp3", autoplay=True)
-                greeting = brain.perform_morning_ritual(energy, gratitude, st.session_state.new_user_data)
-                st.session_state.morning_message = greeting
-                st.session_state.ritual_complete = True
-                st.rerun()
+            if st.form_submit_button("Complete Setup ✨"):
+                # 🛡️ NEW: Screen both inputs together
+                is_safe, flag_msg = brain.safety.screen_input(mindset + " " + goal)
+                
+                if not is_safe:
+                    st.error(flag_msg)
+                else:
+                    st.session_state.new_user_data["mental"] = {"mindset": mindset, "goal": goal}
+                    save_upgrade_profile(st.session_state.new_user_data)
+                    st.session_state.step = 4
+                    st.rerun()
+
+    # --- Step 4: Ritual & Continuous Chat ---
+    elif st.session_state.step == 4:
+        st.header("🌅 Daily Ritual & Chat")
+        
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+
+        # Part A: The Kickoff Form
+        if len(st.session_state.messages) == 0:
+            with st.container():
+                st.markdown("### Start your session")
+                energy = st.slider("Energy Level today:", 1, 5, 3)
+                gratitude = st.text_input("One small win or thing you're grateful for:")
+                
+                if st.button("Begin Ritual ✨"):
+                    is_safe, flag_msg = brain.safety.screen_input(gratitude)
+                    if not is_safe:
+                        st.error(flag_msg)
+                    else:
+                        with st.spinner("PeRA is gathering her thoughts..."):
+                            # Unpack both the greeting AND the real explanation
+                            greeting, explanation = brain.perform_ritual(energy, gratitude, st.session_state.new_user_data)
+                            
+                            st.session_state.messages.append({
+                                "role": "assistant", 
+                                "content": greeting,
+                                "explanation": explanation  # Use the dynamically generated explanation here!
+                            })
+                    st.rerun()
+
+        # Part B: The Continuous Chat Interface
         else:
-            st.write(f"💬 **PeRA:** {st.session_state.morning_message}")
-            if "messages" not in st.session_state:
-                st.session_state.messages = []
+            progress, badge = brain.get_progress_data()
+            st.info(f"🏆 Current Rank: {badge} (Progress: {progress}%)")
+            
             for msg in st.session_state.messages:
-                with st.chat_message(msg["role"]): st.write(msg["content"])
-            if prompt := st.chat_input("How are you feeling?"):
-                st.session_state.messages.append({"role": "user", "content": prompt})
-                with st.chat_message("user"): st.write(prompt)
+                with st.chat_message(msg["role"]):
+                    st.markdown(msg["content"])
+                    if msg["role"] == "assistant" and msg.get("explanation"):
+                        with st.expander("🧠 Why did PeRA suggest this?"):
+                            st.markdown(msg["explanation"])
+
+            if user_input := st.chat_input("How can I help you today?", max_chars=500):
+                st.session_state.messages.append({"role": "user", "content": user_input})
+                with st.chat_message("user"):
+                    st.markdown(user_input)
+
                 with st.chat_message("assistant"):
-                    response = brain.generate_response(prompt, st.session_state.new_user_data)
-                    st.write(response)
-                    st.session_state.messages.append({"role": "assistant", "content": response})
+                    with st.spinner("Analyzing your profile..."):
+                        response, explanation = brain.generate_response(
+                            user_input, 
+                            st.session_state.new_user_data, 
+                            st.session_state.messages
+                        )
+                        st.markdown(response)
+                        if explanation:
+                            with st.expander("🧠 Why did PeRA suggest this?"):
+                                st.markdown(explanation)
+                                
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": response,
+                    "explanation": explanation
+                })
 
 if __name__ == "__main__":
     main()
